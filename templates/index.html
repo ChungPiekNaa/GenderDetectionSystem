@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="{{url_for('static', filename='/images/logo.png')}}" type="image/png">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gender Detection</title>
+</head>
+<video autoplay muted loop id="backgroundVideo">
+    <source src="{{url_for('static', filename='videos/background.mp4')}}" type="video/mp4">
+</video>
+
+    <h1>Gender Detection</h1>
+
+    <form id="uploadForm" enctype="multipart/form-data">
+        <label for="fileInput">Choose an image:</label> 
+        <br>
+        <input type="file" id="fileInput" name="file" accept="image/*" required onchange="previewImage(event)">
+        <br>
+        <img id="imagePreview" style="display: none; max-width: 300px; margin-top: 10px;" alt="Image Preview">
+        <br>
+        <button type="button" onclick="uploadImage()">Upload Image</button>
+    </form>
+
+    <div id="resultContainer" style="display: none;">
+        <!-- Output from the API will be displayed here -->
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = document.getElementById('imagePreview');
+                img.src = e.target.result;
+                img.style.display = 'block'; // Show the image
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function uploadImage() {
+            var formData = new FormData(document.getElementById('uploadForm'));
+
+            // Use Fetch API to send the form data to the API
+            fetch('https://bluebird-first-multiply.ngrok-free.app/detect', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the result container with the API response
+                const resultContainer = document.getElementById('resultContainer');
+                resultContainer.innerHTML = '<h2>API Response:</h2>' +
+                    '<p>Predicted Class: ' + data.predicted_class + '</p>' +
+                    '<p>Confidence: ' + (data.confidence * 100).toFixed(2) + '%</p>';
+
+                resultContainer.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    
+</body>
+</html>
