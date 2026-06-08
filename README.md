@@ -1,0 +1,4 @@
+A project was developed to create a gender detection system using the DenseNet201 model through a transfer learning approach. It was a computer vision task that automatically classified a person’s gender based on facial images. DenseNet201 was chosen as the proposed model due to its strong performance and efficient parameter usage. The system was designed for applications such as personalized marketing, biometric security, demographic analysis, and enhancing user experiences on platforms that require gender-based customization. The target audience for this project included tech industries, researchers, and developers.
+
+<img width="1920" height="1140" alt="Screenshot 2025-06-30 170859" src="https://github.com/user-attachments/assets/0fa6e31f-c2a9-49e6-bae9-ea43d71ed48e" />
+<img width="1920" height="1140" alt="Screenshot 2025-03-21 161028" src="https://github.com/user-attachments/assets/2856a9b6-048f-421a-bbde-4aaae6bf183a" />
